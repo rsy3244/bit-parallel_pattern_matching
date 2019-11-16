@@ -1,0 +1,18 @@
+\documentclass[dvipdfmx, tikz]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{calc,decorations.pathreplacing,quotes,positioning,shapes,fit,arrows,backgrounds,tikzmark}
+
+\begin{document}
+\begin{tikzpicture}[state/.style={circle, draw, minimum size=.8cm}, node distance=.8cm]
+	\node(a0) [state] at (0,0) {$\theta$};
+	\node(a1) [state, above right =of a0] {$\theta_1$};
+	\node(a2) [state, right =of a1] {$\phi_1$};
+	\node(a3) [state, below right =of a2] {$\phi$};
+	
+	\draw [->] (a0) to node[midway, above] {$\epsilon$} (a1);
+	\draw [->] (a1) to node[midway, above] {$\alpha$} (a2);
+	\draw [->] (a2) to node[midway, above] {$\epsilon$} (a3);
+	\draw [->] (a0) to node[midway, above] {$\epsilon$} (a3);
+	\draw [->] (a2) to [bend right] node[midway, above] {$\epsilon$} (a1) ;
+\end{tikzpicture}
+\end{document}
