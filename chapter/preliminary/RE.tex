@@ -1,0 +1,28 @@
+\documentclass[dvipdfmx,beamer]{standalone}
+\ifstandalone
+	\input{preamble.tex}
+\fi
+
+\begin{document}
+\begin{frame}{正規表現}
+	正規表現とは，文字列の集合を表す表現
+	\begin{itemize}
+    \item $\alpha$（$\alpha \in \Sigma$）は集合$\{\alpha\}$を表す
+			\begin{itemize}
+        \item $a$は，$\{a\}$の正規表現
+			\end{itemize}
+		\item $R_1R_2$は連接を表す
+			\begin{itemize}
+				\item $(ca\mid ab)c$は，$\{cac, abc\}$の正規表現
+			\end{itemize}
+    \item $R_1\alert{\mid}R_2$は$R_1$と$R_2$の和集合を表す
+			\begin{itemize}
+				\item $abc\mid ba$は，$\{abc, ba\}$の正規表現
+			\end{itemize}
+    \item $R^{\alert{*}}$は$R$の$0$回以上の繰り返しを表す
+			\begin{itemize}
+				\item $a^*$は，$\{\epsilon, a, aa, \cdots\}$の正規表現
+			\end{itemize}
+	\end{itemize}
+\end{frame}
+\end{document}

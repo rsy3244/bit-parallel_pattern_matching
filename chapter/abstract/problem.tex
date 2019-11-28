@@ -1,0 +1,16 @@
+\documentclass[dvipdfmx,beamer]{standalone}
+\ifstandalone
+	\input{preamble.tex}
+\fi
+
+\begin{document}
+\begin{frame}{扱う問題}
+  正規表現，ネットワーク表現でのパターンが，与えられた文字列の部分文字列にマッチするかを判定する．
+
+  \begin{block}{例}
+    文字列$ABC\alert<2>{ABCA}B$に，\\ 
+    $(ACB\mid \alert<2>{ABCA})$がマッチする部分文字列があるか．\\
+    \onslide<2->{$\rightarrow$ Yes}
+  \end{block}
+\end{frame}
+\end{document}

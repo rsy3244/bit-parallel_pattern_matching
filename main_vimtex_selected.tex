@@ -1,14 +1,12 @@
+\documentclass[dvipdfmx,14pt,notheorems]{beamer} %dvipdfmxを使う場合は指定
+
+\input{preamble.tex}
 %%%% 和文用(よくわかってないです) %%%%
 \usepackage{bxdpx-beamer} %ナビゲーションシンボル(?)を機能させる
 \usepackage{pxjahyper} %しおりの日本語対応
 \usepackage{minijs} %和文メトリックの調整
 \renewcommand{\kanjifamilydefault}{\gtdefault} %和文規定をゴシックに(変えたければrenewcommand で調整)
 %%%%%%%%%%
-
-%%%% TikZ %%%%
-\usepackage{tikz}
-\usetikzlibrary{calc,decorations.pathreplacing,quotes,positioning,shapes,fit,arrows,backgrounds,tikzmark}
-%%%%%%%%
 
 %%%% ファイル分割用のパッケージ %%%%
 \usepackage{standalone}
@@ -28,3 +26,14 @@
 %\usepackage{lxfonts}%数式・英文ローマン体を Lxfont にする
 \usepackage{bm}%数式太字
 %%%%%%%%%%
+
+\title[略タイトル]{アルゴゼミ}
+\author[Mitsuyoshi]{光吉　健汰\inst{1}}
+\institute[IKN]{\inst{1}北海道大学工学部 情報エレクトロニクス学科 情報理工学コース 4年\\
+情報知識ネットワーク研究室}
+\date{\today}%日付
+
+\begin{document}
+		\end{itemize}
+		$R_1,R_2, \cdots ,R_n \in \text{REG}$ としたとき
+\end{document}

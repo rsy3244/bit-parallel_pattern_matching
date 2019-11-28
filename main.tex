@@ -1,9 +1,8 @@
-
-\documentclass[dvipdfmx,12pt,notheorems]{beamer} %dvipdfmxを使う場合は指定
+\documentclass[dvipdfmx,14pt,notheorems]{beamer} %dvipdfmxを使う場合は指定
 
 \input{preamble.tex}
 
-\title[略タイトル]{アルゴゼミ}
+\title[略タイトル]{論文紹介\\ {\normalsize Fast Bit-Parallel Matching \\for Network and Regular Expressions}} %タイトルの行間がおかしい
 \author[Mitsuyoshi]{光吉　健汰\inst{1}}
 \institute[IKN]{\inst{1}北海道大学工学部 情報エレクトロニクス学科 情報理工学コース 4年\\
 情報知識ネットワーク研究室}
@@ -20,13 +19,15 @@
 	\tableofcontents
 }
 
-\section{読んだもの}
-\begin{frame}{読んだもの}
-	Fast Bit-Parallel Matching for Network and Regular Expressions
-\end{frame}
+\section{論文概要}
+%論文の情報を載せる
+\import{chapter/abstract/}{info}
+\import{chapter/abstract/}{problem}
+
+\section{準備}
+\import{chapter/preliminary/}{RE}
+\import{chapter/preliminary/}{NET}
+
 	
-
-
-\import{chapter/}{test}
 
 \end{document}
