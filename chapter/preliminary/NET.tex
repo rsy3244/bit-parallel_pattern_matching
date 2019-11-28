@@ -1,29 +1,60 @@
 \documentclass[dvipdfmx,beamer]{standalone}
 \ifstandalone
-	\input{preamble.tex}
+	\input{../../preamble.tex}
 \fi
 
 \begin{document}
-\begin{frame}{ネットワーク表現}
-	ネットワーク表現とは，正規表現からクリーネ閉包を除いた表現．
-	\begin{itemize}
-		\item $\alpha$は集合$\{\alpha\}$を表す
-			\begin{itemize}
-				\item $a$は，$\{a\}$の正規表現
-			\end{itemize}
-		\item $R_1R_2$は連接を表す
-			\begin{itemize}
-				\item $(ca\mid ab)c$は，$\{cac, abc\}$の正規表現
-			\end{itemize}
-    \item $R_1\alert{|}R_2$は$R_1$と$R_2$の和集合を表す
-			\begin{itemize}
-				\item $abc\mid ba$は，$\{abc, ba\}$の正規表現
-			\end{itemize}
-    \item $R^{\alert{*}}$は$R$の$0$回以上の繰り返しを表す
-			\begin{itemize}
-				\item $a^*$は，$\{\epsilon, a, aa, \cdots\}$の正規表現
-			\end{itemize}
-	\end{itemize}
-	
+\begin{frame}{クラス}
+  \alert{クラス}
+  \begin{itemize}
+    \item ある表現が扱えるような文字列の全体集合
+    \item 正規表現クラスは$\textsf{REG}$
+  \end{itemize}
+  \alert{ネットワーク表現}
+  \begin{itemize}
+    \item 正規表現からクリーネ閉包を除いた表現
+    \item クラスは$\textsf{NET}$
+    \item $\textsf{NET} \subset \textsf{REG} \subset \Sigma^*$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{拡張表現}
+  \alert{拡張表現} : 正規表現に以下の記号を加える.
+    %\begin{description}
+    %  \item[$.$] 任意の文字
+    %    \begin{itemize} \item $.b$ は $\{ab, bb, cb,\ldots\}$を表す. \end{itemize}
+    %  \item[$?$] 0,1回の文字
+    %    \begin{itemize} \item $a?b$ は $\{ab, b\}$を表す. \end{itemize}
+    %    \item[${}^*, {}^+$] 0回以上，1回以上の文字の繰り返し
+    %    \begin{itemize} \item $a^*$, $a^+$ は それぞれ$\{\epsilon, a, aa, \ldots\}, \{a, aa, \ldots\}$を表す. \end{itemize}
+    %  \item[$\{x,y\}$] $x$回以上，$y$回以下の文字の繰り返し
+    %  \begin{itemize} \item $a\{2,4\}$ は $\{aa, aaa, aaaa\}$を表す. \end{itemize}
+    %\end{description}
+    \begin{tabular}{|c|l|}\hline
+      \alert{$.$} & 任意の文字 \\ 例 & $.b = \{ab, bb, cb, \ldots \}$ \\\hline
+      \alert{$?$} & 0,1回の文字 \\ 例 & $a?b = \{ab, b \}$ \\\hline
+      \alert{${}^*$} & 0回以上の文字の繰り返し \\ 例 & $a^* = \{\epsilon, a, aa, \ldots \}$ \\\hline
+      \alert{${}^+$} & 1回以上の文字の繰り返し \\ 例 & $a^+ = \{a, aa, \ldots \}$ \\\hline
+      \alert{$\{x,y\}$} & $x$回以上，$y$回以下の文字の繰り返し \\ 例 & $a\{2,4\} = \{aa, aaa, aaaa \}$ \\\hline
+    \end{tabular}
+\end{frame}
+
+\begin{frame}{$(3/3)$}
+  \begin{itemize}
+    \item 前述の拡張表現のクラスは$\textsf{EXT}$
+
+  \end{itemize}
+  \begin{center}
+    \begin{tikzpicture}
+      \node(NET) [circle, draw, minimum size=1cm] at (0,0) {$\textsf{NET}$};
+      \node(EXNET) [left=of NET] {$\textsf{EXNET}$};
+      \node(extnet) [rounded rectangle, draw, fit= (NET) (EXNET)] {};
+      \node(REG) at (-3.5, 2) {$\textsf{REG} = \textsf{EXT}$};
+      \begin{scope}[on background layer, remember picture]
+        \node(reg) [rounded rectangle, fill={rgb:red,1;blue,10;white,100}, draw, fit=(NET) (EXNET) (extnet) (REG)] {};
+      \end{scope}
+    \end{tikzpicture}
+  \end{center}
+
 \end{frame}
 \end{document}

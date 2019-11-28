@@ -1,11 +1,19 @@
 \documentclass[dvipdfmx,beamer]{standalone}
 \ifstandalone
-	\input{preamble.tex}
+  \input{../../preamble.tex}
 \fi
 
 \begin{document}
 \begin{frame}{主結果}
-  SHIFT-AND
-	
+  \textsf{NET}，\textsf{EXNET}，\textsf{REG}クラスにおいて，\\以下の計算量でパターンマッチが可能．
+  \begin{center}
+    \scriptsize
+    \begin{tabular}{|l|l|l|l|}\hline
+      クラス & 前処理 & 実行時間 & 空間 \\\hline
+      \textsf{NET} & $\mathcal{O}\left(dm + |\Sigma|\lceil \frac{m}{w} \rceil \right)$ & $\mathcal{O}\left(nd\lceil \frac{m}{w} \rceil \right)$ & $\mathcal{O}\left(d\lceil \frac{m}{w} \rceil + |\Sigma|\lceil \frac{m}{w} \rceil \right)$ \\\hline
+      \textsf{EXNET} & $\mathcal{O}\left(dm + |\Sigma|\lceil \frac{m}{w} \rceil \right)$ & $\mathcal{O}\left(nd\lceil \frac{m}{w} \rceil \right)$ & $\mathcal{O}\left(d\lceil \frac{m}{w} \rceil + |\Sigma|\lceil \frac{m}{w} \rceil \right)$ \\\hline
+      \textsf{REG} & $\mathcal{O}\left(dm\log m + |\Sigma|\lceil \frac{m}{w} \rceil \right)$ & $\mathcal{O}\left(nd\lceil \frac{m}{w} \rceil \log m \right)$ & $\mathcal{O}\left(d\lceil \frac{m}{w} \rceil \log m + |\Sigma|\lceil \frac{m}{w} \rceil \right)$ \\\hline
+    \end{tabular}
+  \end{center}
 \end{frame}
 \end{document}
