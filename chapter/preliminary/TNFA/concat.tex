@@ -6,7 +6,9 @@
 \begin{tikzpicture}[state/.style={circle, draw, fill=white, minimum size=.8cm}, node distance=.8cm]
 	\node(a0) [state] at (0,0) {$\theta_1$};
 	\node(a1) [state, right =of a0] {$\phi_1$};
+  \node(a1_1) [below =.1cm of a1] {$= \theta_2$};
 	\node(a2) [state, right =2cm of a1] {$\theta_n$};
+  \node(a2_1) [below =.1cm of a2] {$= \phi_{n-1}$};
 	\node(a3) [state, right =of a2] {$\phi_n$};
 	
 	\node(n1) [above right=.4cm of a0, minimum size=0] {$R_1$};

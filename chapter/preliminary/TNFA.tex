@@ -1,0 +1,60 @@
+\documentclass[dvipdfmx,12pt,beamer]{standalone}
+\ifstandalone
+	\input{../../preamble.tex}
+\fi
+
+\begin{document}
+\begin{frame}{非決定性有限オートマトン（{\small Nondeterministic Finite Automaton）}}
+  \alert{非決定性有限オートマトン}（NFA）: 形式言語を受理できる
+
+\end{frame}
+\begin{frame}{トンプソンオートマトン（Thompson NFA）(1/2)}
+  \alert{トンプソンオートマトン}（TNFA）: 以下の規則によって\\生成された，非決定性有限オートマトン（NFA）
+  \begin{table}
+    \centering
+    \begin{tabular}{cccc}
+      $N(\epsilon)$ & $N(\alpha)$ & $N(\alpha?)$ & $N(\alpha*)$ \\
+      \scalebox{.7}{
+        \ImportStandalone{chapter/preliminary/}{TNFA/}{epsilon}
+    }
+      &
+      \scalebox{.7}{
+        \ImportStandalone{chapter/preliminary/}{TNFA/}{atom}
+    }
+      &
+      \scalebox{.7}{
+        \ImportStandalone{chapter/preliminary/}{TNFA/}{optional}
+      }
+      &
+      \scalebox{.7}{
+        \ImportStandalone{chapter/preliminary/}{TNFA/}{rep}
+      }
+    \end{tabular}
+  \end{table}
+\end{frame}
+\begin{frame}{トンプソンオートマトン（Thompson NFA）(2/2)}
+  \alert{トンプソンオートマトン}（TNFA）: 以下の規則によって\\生成された，非決定性有限オートマトン（NFA）
+  \begin{table}
+    \centering
+    \begin{tabular}{cc}
+      $N((R_1\ldots R_n))$ & $N((R_1 \mid \ldots \mid R_n))$\\
+      \scalebox{.5}{
+        \ImportStandalone{chapter/preliminary/}{TNFA/}{concat}
+    }
+      &
+      \scalebox{.5}{
+        \ImportStandalone{chapter/preliminary/}{TNFA/}{union}
+      }
+    \end{tabular}
+  \end{table}
+  \begin{table}
+    \centering
+    \begin{tabular}{c}
+      $N((R)^*)$ \\
+    \scalebox{.7}{
+      \ImportStandalone{chapter/preliminary/}{TNFA/}{kleene}
+    }
+    \end{tabular}
+  \end{table}
+\end{frame}
+\end{document}

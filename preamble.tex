@@ -28,3 +28,13 @@
 %\usepackage{lxfonts}%数式・英文ローマン体を Lxfont にする
 \usepackage{bm}%数式太字
 %%%%%%%%%%
+
+%%%% Standaloneかどうかでimportのパスを切り替える %%%%
+\providecommand{\ImportStandalone}[3]{
+	\IfStandalone{
+		\import{#2}{#3}
+		}{
+		\import{#1#2}{#3}
+	}
+}
+%%%%%%%%

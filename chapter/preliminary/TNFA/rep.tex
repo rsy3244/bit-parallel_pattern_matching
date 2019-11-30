@@ -1,0 +1,16 @@
+\documentclass[dvipdfmx, tikz]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{calc,decorations.pathreplacing,quotes,positioning,shapes,fit,arrows,backgrounds,tikzmark}
+
+\begin{document}
+\begin{tikzpicture}[state/.style={circle, draw, minimum size=.8cm}, node distance=.8cm]
+	\node(a0) [state] at (0,0) {$\theta$};
+	\node(a1) [state, right =of a0] {$\phi$};
+  \node(phantom) at (0,1) {};
+  \node(phantom) at (0,-1) {};
+	
+	\draw [->] (a0) to node[midway, above] {$\alpha$} (a1);
+	\draw [->] (a0) to [bend right] node[midway, below] {$\epsilon$} (a1);
+	\draw [->] (a1) to [out=60, in=120, looseness=8] node[midway, below] {$\alpha$} (a1) ;
+\end{tikzpicture}
+\end{document}

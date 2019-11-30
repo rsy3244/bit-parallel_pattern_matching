@@ -1,11 +1,11 @@
-\documentclass[dvipdfmx,beamer]{standalone}
+\documentclass[dvipdfmx,12pt,beamer]{standalone}
 \ifstandalone
   \input{../../preamble.tex}
 \fi
 
 \begin{document}
 \begin{frame}{主結果}
-  \textsf{NET}，\textsf{EXNET}，\textsf{REG}クラスにおいて，\\以下の計算量でパターンマッチが可能．
+  \textsf{NET}，\textsf{EXNET}，\textsf{REG}クラス（後述）において，\\以下の計算量でパターンマッチが可能．
   \begin{center}
     \scriptsize
     \begin{tabular}{|l|l|l|l|}\hline
@@ -15,5 +15,20 @@
       \textsf{REG} & $\mathcal{O}\left(dm\log m + |\Sigma|\lceil \frac{m}{w} \rceil \right)$ & $\mathcal{O}\left(nd\lceil \frac{m}{w} \rceil \log m \right)$ & $\mathcal{O}\left(d\lceil \frac{m}{w} \rceil \log m + |\Sigma|\lceil \frac{m}{w} \rceil \right)$ \\\hline
     \end{tabular}
   \end{center}
+  \begin{columns}[t]
+    \scriptsize
+    \begin{column}{0.4\linewidth}
+      \begin{description}
+        \item[$d$ :] 構文木の深さ
+        \item[$m$ :] パターンの長さ
+      \end{description}
+    \end{column}
+    \begin{column}{0.59\linewidth}
+      \begin{description}
+        \item[$\Sigma$ :] 文字集合（アルファベット）
+        \item[$w$ :] ワードサイズ
+      \end{description}
+    \end{column}
+  \end{columns}
 \end{frame}
 \end{document}
