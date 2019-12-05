@@ -1,0 +1,31 @@
+\documentclass[dvipdfmx,12pt,beamer]{standalone}
+\ifstandalone
+	\input{../../preamble.tex}
+\fi
+
+\begin{document}
+\begin{frame}{パターンの展開}
+  拡張パターンの一部の記号を等価な別の表現に展開\\
+  拡張パターンの記号（再掲）
+  \begin{center}
+    \small
+    \begin{tabular}{|c|l|}\hline
+      \alert{$.$} & 任意の文字 \\  & 例 $.B = \{AB, BB, CB, \ldots \}$ \\\hline
+      \alert{$?$\tikzmark{optional}} & 0,1回の文字 \\  & 例 $A?B = \{AB, B \}$ \\\hline
+      \alert{${}^*$} & 0回以上の文字の繰り返し \\  & 例 $A^* = \{\epsilon, A, AA, \ldots \}$ \\\hline
+      \alert{${}^+$\tikzmark{rep1}} & 1回以上の文字の繰り返し \\  & 例 $A^+ = \{A, AA, \ldots \}$ \\\hline
+      \alert{$\{x,y\}$\tikzmark{bndrep}} & $x$回以上，$y$回以下の文字の繰り返し \\  & 例 $A\{2,4\} = \{AA, AAA, AAAA \}$ \\\hline
+    \end{tabular}
+  \end{center}
+
+  \begin{tikzpicture}[overlay, remember picture]
+    \node<2> [ellipse callout, draw, fill=blue!5, callout absolute pointer={(pic cs:optional)}] at ($(pic cs:optional) + (1,-2)$) {$A? = (\epsilon | A)$に変換};
+    \node<3> [ellipse callout, draw, fill=blue!5, callout absolute pointer={($(pic cs:rep1) + (0,.2)$)}] at ($(pic cs:rep1) + (3,2)$) {$A^+ = (AA^*)$に変換};
+    \node<4> [ellipse callout, draw, fill=blue!5, callout absolute pointer={($(pic cs:bndrep)+(0,.2)$)}] at ($(pic cs:bndrep) + (3,2)$) {$A\{x,y\} = ((A?)^{y-x}A^x)$に変換};
+    %\node<3> [ellipce callout, 
+  \end{tikzpicture}
+
+
+  
+\end{frame}
+\end{document}

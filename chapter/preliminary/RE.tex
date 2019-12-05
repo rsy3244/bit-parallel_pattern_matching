@@ -4,24 +4,24 @@
 \fi
 
 \begin{document}
-\begin{frame}{正規表現（Regular Expression）} 
+\begin{frame}{正規表現（Regular Expressions）} 
   \alert{正規表現}: 文字列の集合を表す表現\\
 	\begin{itemize}
-    \item $\alpha$（$\alpha \in \Sigma$）は集合$\{\alpha\}$を表す．
+    \item $\alpha (\alpha \in \Sigma)$は集合$\{\alpha\}$を表す．
 			\begin{itemize}
-        \item $a$は，$\{a\}$の正規表現．
+        \item $A$は，$\{A\}$の正規表現．
 			\end{itemize}
 		\item $R_1R_2$は連接（Concatenation）を表す．
 			\begin{itemize}
-				\item $(ca\mid ab)c$は，$\{cac, abc\}$の正規表現．
+				\item $(CA\mid AB)C$は，$\{CAC, ABC\}$の正規表現．
 			\end{itemize}
-    \item $R_1\alert{\mid}R_2$は$R_1$と$R_2$の和集合（Union）を表す．
+    \item $(R_1\alert{\mid}R_2)$は$R_1$と$R_2$の和集合（Alternation）を表す．
 			\begin{itemize}
-				\item $abc\mid ba$は，$\{abc, ba\}$の正規表現．
+				\item $ABC\mid BA$は，$\{ABC, BA\}$の正規表現．
 			\end{itemize}
-    \item $R^{\alert{*}}$は$R$の$0$回以上の繰り返し（Kleene closure）を表す．
+    \item $(R)^{\alert{*}}$は$R$の$0$回以上の繰り返し（Kleene closure）を表す．
 			\begin{itemize}
-				\item $a^*$は，$\{\epsilon, a, aa, \ldots\}$の正規表現．
+				\item $A^*$は，$\{\epsilon, A, AA, \ldots\}$の正規表現．
 			\end{itemize}
 	\end{itemize}
 \end{frame}

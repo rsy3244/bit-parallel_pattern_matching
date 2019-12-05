@@ -1,0 +1,27 @@
+\documentclass[dvipdfmx,12pt,beamer]{standalone}
+\ifstandalone
+	\input{../../preamble.tex}
+\fi
+
+\begin{document}
+\begin{frame}{}
+  TNFAから以下のビット数が状態数のビットマスクを作成\\
+  ビットマスクの$i$ビット目は，TNFAの状態の$i$番目に対応
+  \begin{itemize}
+    \item $CHR[\alpha]$ 遷移が$\alpha$であるものの遷移先にビットを立てる
+    \item $REP[\alpha ]$  遷移が$\alpha$である自己ループを持つ状態に\\\hspace{1.5cm}ビットを立てる
+    \item $BLK_{\tau} [k]$\tikzmark{arrtop}   
+    \item $SRC_{\tau} [k]$   \hspace{.5cm} $\textsf{SCATTER}, \textsf{GATHER}, \textsf{PROPAGATE}$の\\
+    \item $DST_{\tau} [k]$\tikzmark{arrbot}   \hspace{.5cm} 操作で使用する\\
+  {\small
+    \begin{itemize}
+      \item $\alpha \in \Sigma$
+      \item $k$ パターンの深さ
+    \end{itemize}
+  }
+  \end{itemize}
+  \begin{tikzpicture}[overlay, remember picture]
+    \draw[decorate, very thick, decoration={brace, amplitude=.5cm}] ($(pic cs:arrtop) +(0,.3)$) - - ($(pic cs:arrbot) +(0,-.1)$);
+  \end{tikzpicture}
+\end{frame}
+\end{document}

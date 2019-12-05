@@ -1,10 +1,35 @@
 \documentclass[dvipdfmx,12pt,beamer]{standalone}
 \ifstandalone
-	\input{preamble.tex}
+	\input{../../preamble.tex}
 \fi
 
 \begin{document}
-\begin{frame}{パターンマッチ}
+\begin{frame}{\textsf{EXNET}クラスにおけるパターンマッチ}
+  \begin{itemize}
+    \item 前処理
+    \begin{enumerate}
+      \item 拡張パターンの記号を等価な正規表現に変換
+      \item TNFAを構築
+      \item TNFAから遷移を演算するためのビットマスクを構築
+    \end{enumerate}
+  \item 実行時
+  \begin{enumerate}
+    \item ビットマスクを利用してTNFAをシミュレート
+  \end{enumerate}
+  \end{itemize}
+  \begin{tikzpicture}
+    \node(pat) at (0,0) {$A(AB|B?)(B?.^*|AB)C$};
+    \node(expand) [right =of pat] {$A(AB|(\epsilon |B))((\epsilon |B).^*|AB)C$};
+    \node(tnfa) [below =of pat] {\scalebox{.25}{\ImportStandalone{chapter/algorithm/}{../../figure/}{state}}};
+    \node(bitmask) [below =of expand] {\scalebox{.45}{\ImportStandalone{chapter/algorithm/}{../../figure/}{bitmask}}};
+
+    \draw[->, very thick] (pat) -- node [midway, above] {$1$} (expand);
+    \draw[->, very thick] (expand.south west) -- node [midway, above] {$2$} (tnfa);
+    \draw[->, very thick] (tnfa) -- node [midway, above] {$3$} (bitmask);
+
+  \end{tikzpicture}
+
+
   
 \end{frame}
 \end{document}

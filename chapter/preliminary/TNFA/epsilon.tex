@@ -8,6 +8,9 @@
 	\node(a1) [state, right =of a0] {$\phi$};
   \node(phantom) at (0,-1) {};
 	
-	\draw [->] (a0) to node[midway, above] {$\epsilon$} (a1);
+  \draw [->] (a0) to node(e0)[midway, above] {$\epsilon$} (a1);
+  \ifx\TNFAActivateEdgeLabel\undefined \else
+    \node[below=.2 of e0] {$p\mathchar`-edge$};
+  \fi
 \end{tikzpicture}
 \end{document}

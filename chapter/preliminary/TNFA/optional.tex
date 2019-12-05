@@ -8,7 +8,11 @@
 	\node(a1) [state, right =of a0] {$\phi$};
   \node(phantom) at (0,-1) {};
 
-	\draw [->] (a0) to node[midway, above] {$\alpha$} (a1);
-	\draw [->] (a0) to [out=-60, in=-120, looseness=1] node[midway, below] {$\epsilon$} (a1) ;
+  \draw [->] (a0) to node(e0)[midway, above] {$\alpha$} (a1);
+  \draw [->] (a0) to [out=-60, in=-120, looseness=1] node(e1)[midway, below] {$\epsilon$} (a1) ;
+  \ifx\TNFAActivateEdgeLabel\undefined \else
+    \node[above=.0 of e0] {$\alpha\mathchar`-edge$};
+    \node[below=.0 of e1] {$p\mathchar`-edge$};
+  \fi
 \end{tikzpicture}
 \end{document}

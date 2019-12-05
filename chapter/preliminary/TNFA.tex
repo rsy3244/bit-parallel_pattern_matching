@@ -32,7 +32,7 @@
     \end{tabular}
   \end{table}
 \end{frame}
-\begin{frame}{トンプソンオートマトン（Thompson NFA）(2/2)}
+\begin{frame}{トンプソンオートマトン（Thompson NFA）(2/3)}
   \alert{トンプソンオートマトン}（TNFA）: 以下の規則によって\\生成された，非決定性有限オートマトン（NFA）
   \begin{table}
     \centering
@@ -57,4 +57,54 @@
     \end{tabular}
   \end{table}
 \end{frame}
+\begin{frame}{トンプソンオートマトン（Thompson NFA）(3/4)}
+  \begin{description}
+    \item[$\alpha\mathchar`-edge$ : ]  文字を受け取ったときに遷移する辺
+    \item[$\epsilon\mathchar`-edge$ : ]  空文字で遷移する辺
+  \end{description}
+    \begin{description}
+      \item[$s\mathchar`-edge$ : ] $1$状態から分岐する$\epsilon\mathchar`-edge$
+      \item[$g\mathchar`-edge$ : ] $1$状態に集約する$\epsilon\mathchar`-edge$
+      \item[$p\mathchar `-edge$ : ] 状態の添字が増加するような$\epsilon\mathchar`-edge$
+      \item[$b\mathchar`-edge$ : ] $\epsilon\mathchar`-edge$のうち，$p\mathchar`-edge$でないもの
+    \end{description}
+\end{frame}
+\begin{frame}{トンプソンオートマトン（Thompson NFA）(4/4)}
+  \newcommand{\TNFAActivateEdgeLabel}{\relax}
+  \begin{table}
+    \centering
+    \begin{tabular}{cccc}
+      \scalebox{.7}{
+        \ImportStandalone{chapter/preliminary/}{TNFA/}{epsilon}
+    }
+      &
+      \scalebox{.7}{
+        \ImportStandalone{chapter/preliminary/}{TNFA/}{atom}
+    }
+      &
+      \scalebox{.7}{
+        \ImportStandalone{chapter/preliminary/}{TNFA/}{optional}
+      }
+      &
+      \scalebox{.7}{
+        \ImportStandalone{chapter/preliminary/}{TNFA/}{rep}
+      }
+    \end{tabular}
+  \end{table}
+  \begin{table}
+    \centering
+    \begin{tabular}{cc}
+      \scalebox{.5}{
+        \ImportStandalone{chapter/preliminary/}{TNFA/}{union}
+      }
+      &
+      \scalebox{.7}{
+        \ImportStandalone{chapter/preliminary/}{TNFA/}{kleene}
+      }
+    \end{tabular}
+  \end{table}
+\end{frame}
+
+
+
 \end{document}

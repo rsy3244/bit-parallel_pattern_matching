@@ -1,0 +1,57 @@
+\documentclass[dvipdfmx,12pt,beamer]{standalone}
+\ifstandalone
+	\input{../../preamble.tex}
+\fi
+
+\begin{document}
+\begin{frame}{TNFAの構築}
+  展開されたパターンからTNFAを構築
+  \begin{itemize}
+    \item \alert<2>{演算子$|$を親として，構文木（Parse Tree）を構築}
+      \begin{itemize}
+        \item この構文木での各頂点と根の間にある$|$の数を\\対応するパターンの\alert{深さ}（depth）とする
+      \end{itemize}
+    \item \alert<3>{構文木を利用し，前述の規則に従ってTNFAを構築}
+  \end{itemize}
+  {\small 例 $A(AB|B?)(B?.*|AB)C$ }\\
+  \onslide*<1>{\vspace{4cm}}
+  \onslide*<2>{
+    \centering
+  \scalebox{.7}{
+\begin{tikzpicture}[state/.style={circle, draw, minimum size=.8cm}, ]
+  \node(ptree) [state] {$\cdot$} [level distance=1cm, level 1/.style={sibling distance=4cm}, level 2/.style={sibling distance=2cm}, level 3/.style={sibling distance=1cm}]
+    child {node [state] {$A$}}
+    child {node [state] {$|$}
+      child {node [state] {$\cdot$} 
+        child {node [state] {$A$}} 
+        child {node [state] {$B$}}
+      }
+      child[level distance=2cm] {node [state] {$B?$} }
+    }
+    child {node [state] {$|$}
+      child {node [state] {$\cdot$}
+        child {node [state] {$B?$}}
+        child {node [state] {$.^*$}}
+      }
+      child {node [state] {$\cdot$}
+        child {node [state] {$A$}}
+        child {node [state] {$B$}}
+      }
+    }
+  child {node [state] {$C$}};
+  \node [above =.5cm of ptree-1] {depth $0$};
+  \node [below =.1cm of ptree-1] {depth $1$};
+  \draw ($(ptree-1)+(-1,-.5)$) -- ($(ptree-4)+(1,-.5)$);
+  \draw ($(ptree-1)+(-1,1.5)$) -- ($(ptree-4)+(1,1.5)$);
+  \draw ($(ptree-1)+(-1,-2.5)$) -- ($(ptree-4)+(1,-2.5)$);
+\end{tikzpicture}
+}
+}
+\onslide*<3>{
+  \centering
+  \scalebox{.7}{
+    \ImportStandalone{chapter/algorithm/}{../../figure/}{state}
+  }
+}
+\end{frame}
+\end{document}

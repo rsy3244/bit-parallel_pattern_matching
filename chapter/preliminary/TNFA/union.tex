@@ -14,10 +14,10 @@
   \node(s) [state] at (-2, -1.1) {$\theta$};
   \node(g) [state] at (4, -1.1) {$\phi$};
 
-  \draw[->, thick] (s) -- node[midway, below] {$\epsilon$} (a0);
-  \draw[->, thick] (s) -- node[midway, below] {$\epsilon$} (a2);
-  \draw[->, thick] (a1) -- node[midway, below] {$\epsilon$} (g);
-  \draw[->, thick] (a3) -- node[midway, below] {$\epsilon$} (g);
+  \draw[->, thick] (s) -- node(e0)[midway, below] {$\epsilon$} (a0);
+  \draw[->, thick] (s) -- node(e1)[midway, below] {$\epsilon$} (a2);
+  \draw[->, thick] (a1) -- node(e2)[midway, below] {$\epsilon$} (g);
+  \draw[->, thick] (a3) -- node(e3)[midway, below] {$\epsilon$} (g);
 
 	\draw[draw opacity=0] (a0) -- node[midway] {...} (a1);
 	\draw[draw opacity=0] (a2) -- node[midway] {...} (a3);
@@ -26,6 +26,12 @@
 	\node(R2)[fill=blue!20, draw=black, thick,inner sep=0cm, rounded rectangle, fit=(a2) (a3) (n2)] {};
 	\draw[draw opacity=0] (R1) -- node[midway] {$\vdots$} (R2);
 	\end{scope}
+  \ifx\TNFAActivateEdgeLabel\undefined \else
+    \node[above left=0 of e0] {$s\mathchar`-edge$};
+    \node[left=0 of e1] {$s\mathchar`-edge$};
+    \node[above right=0 of e2] {$g\mathchar`-edge$};
+    \node[right=0 of e3] {$g\mathchar`-edge$};
+  \fi
 	
 \end{tikzpicture}
 \end{document}
