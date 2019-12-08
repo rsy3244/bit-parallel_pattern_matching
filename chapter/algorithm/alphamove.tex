@@ -1,0 +1,170 @@
+\documentclass[dvipdfmx,12pt,beamer]{standalone}
+\ifstandalone
+	\input{../../preamble.tex}
+\fi
+
+\begin{document}
+\begin{frame}{$\alpha\mathchar`-edge$の遷移処理}
+	\begin{block}{$\alpha\mathchar`-edge$の遷移処理}
+		$D \gets \left( \left( \left( D \ll 1 \right) \& CHR[\alpha] \mid 1 \right) \mid \left( D \& REP[\alpha] \right) \right)$\\
+	\begin{itemize}
+	{\small
+		\item $\alpha\mathchar`-edge$は，自身の状態かその次の添字の状態への遷移のみ\\
+			\begin{itemize}
+				\item ビットシフトによって処理可能
+			\end{itemize}
+	}
+	\end{itemize}
+	\end{block}
+	\begin{center}
+	\scalebox{.4}{
+		\begin{tikzpicture}[state/.style={circle, draw, minimum size=.8cm}, node distance=.8cm]
+			\node(a0) [state] at (0,0) {$0$};
+			\node(a1) [state, right =of a0] {$1$};
+			\node(a2) [state, above right =of a1] {$2$};
+			\node(a3) [state, right =of a2] {$3$};
+			\node(a4) [state, right =of a3] {$4$};
+			\node(a5) [state, below right =of a1] {$5$};
+			\node(a7) [state, below right =of a4] {$7$};
+			\node(a6) [state, below left = of a7] {$6$};
+			\node(a8) [state, above right =of a7] {$8$};
+			\node(a9) [state, right =of a8] {$9$};
+			\node(a10) [state, right =of a9] {$10$};
+			\node(a11) [state, below right =of a7] {$11$};
+			\node(a12) [state, right =of a11] {$12$};
+			\node(a13) [state, right =of a12] {$13$};
+			\node(a14) [state, below right =of a10] {$14$};
+			\node(a15) [state, double, double distance=.8mm, right =of a14] {$15$};
+
+			\draw [->] (a0) to node[midway, above] {$A$} (a1) ;
+			\draw [->] (a1) to node[midway, above] {$\epsilon$} (a2) ;
+			\draw [->] (a1) to node[midway, above] {$\epsilon$} (a5) ;
+			\draw [->] (a2) to node[midway, above] {$A$} (a3);
+			\draw [->] (a3) to node[midway, above] {$B$} (a4);
+			\draw [->] (a5) to node[midway, above] {$B$} (a6);
+			\draw [->] (a5) to [bend right] node[midway, above] {$\epsilon$} (a6) ;
+			\draw [->] (a4) to node[near end, above] {$\epsilon$} (a7) ;
+			\draw [->] (a6) to node[near start, above] {$\epsilon$} (a7) ;
+			\draw [->] (a7) to node[near start, above] {$\epsilon$} (a8) ;
+			\draw [->] (a7) to node[near end, above] {$\epsilon$} (a11) ;
+			\draw [->] (a8) to node[midway, above] {$B$} (a9) ;
+			\draw [->] (a9) to node[midway, above] {$\Sigma$} (a10) ;
+			\draw [->] (a8) to [bend right] node[midway, below] {$\epsilon$} (a9) ;
+			\draw [->] (a9) to [bend right] node[midway, below] {$\epsilon$} (a10) ;
+			\draw [->] (a10) to [out=60, in=120, looseness=8] node[midway, below] {$\Sigma$} (a10) ;
+			\draw [->] (a11) to node[midway, above] {$A$} (a12) ;
+			\draw [->] (a12) to node[midway, above] {$B$} (a13) ;
+			\draw [->] (a10) to node[near end, above] {$\epsilon$} (a14) ;
+			\draw [->] (a13) to node[near start, above] {$\epsilon$} (a14) ;
+			\draw [->] (a14) to node[midway, above] {$C$} (a15) ;
+		\end{tikzpicture}
+	}
+	\end{center}
+	\begin{tikzpicture}[state/.style={circle, draw, minimum size=.7cm}, node distance=0cm]
+		\onslide+<1,4>{
+			\node(name) [minimum width=2cm] at (-1.5,0) {$D$};
+			\node [left =0cm of name, minimum width=1cm] {};
+			\node(d0) [rectangle, fill=blue!5, draw] at (0,0) {$1$};
+			\foreach \x [count=\i from 0, remember=\i as \prev (initially 0)] in {1,0,1,0,0,1,0,0,0,1,0,0,0,0,0} {
+				\ifodd\x
+					\node(d\i) [rectangle, draw, fill=blue!5, right =of d\prev] {$\x$};
+				\else
+					\node(d\i) [rectangle, draw, fill=white, right =of d\prev] {$\x$};
+				\fi
+			}
+		}
+		\onslide+<2-3>{
+			\node(name) [minimum width=2cm] at (-1.5,0) {$D \ll 1$};
+			\node [left =0cm of name, minimum width=1cm] {};
+			\node(d0) [rectangle, draw] at (0,0) {$0$};
+			\foreach \x [count=\i from 0, remember=\i as \prev (initially 0)] in {1,1,0,1,0,0,1,0,0,0,1,0,0,0,0} {
+				\ifodd\x
+					\node(d\i) [rectangle, draw, fill=blue!5, right =of d\prev] {$\x$};
+				\else
+					\node(d\i) [rectangle, draw, fill=white, right =of d\prev] {$\x$};
+				\fi
+			}
+		}
+		\onslide+<5>{
+			\node(name) [minimum width=2cm] at (-1.5,0) {$D^\prime \mid 1$};
+			\node [left =0cm of name, minimum width=1cm] {};
+			\node(d0) [rectangle, fill=blue!5, draw] at (0,0) {$1$};
+			\foreach \x [count=\i from 0, remember=\i as \prev (initially 0)] in {1,0,0,0,0,0,0,0,0,0,1,0,0,0,0} {
+				\ifodd\x
+					\node(d\i) [rectangle, draw, fill=blue!5, right =of d\prev] {$\x$};
+				\else
+					\node(d\i) [rectangle, draw, fill=white, right =of d\prev] {$\x$};
+				\fi
+			}
+		}
+	\end{tikzpicture}
+	\begin{tikzpicture}[state/.style={circle, draw, minimum size=.7cm}, node distance=0cm]
+		\onslide+<3>{
+			\node(name) [minimum width=2cm] at (-1.5,0) {$CHR[A]$};
+			\node [left =0cm of name, minimum width=1cm] {$\& )$};
+			\node(chr0) [rectangle, draw] at (0,0) {$0$};
+			\foreach \x [count=\i from 0, remember=\i as \prev (initially 0)] in {1,0,1,0,0,0,0,0,0,1,0,1,0,0,0} {
+				\node(chr\i) [rectangle, draw, right =of chr\prev] {$\x$};
+			}
+		}
+		\onslide+<4>{
+			\node(name) [minimum width=2cm] at (-1.5,0) {$REP[A]$};
+			\node [left =0cm of name, minimum width=1cm] {$\& )$};
+			\node(chr0) [rectangle, draw] at (0,0) {$0$};
+			\foreach \x [count=\i from 0, remember=\i as \prev (initially 0)] in {0,0,0,0,0,0,0,0,0,1,0,0,0,0,0} {
+				\node(chr\i) [rectangle, draw, right =of chr\prev] {$\x$};
+			}
+		}
+		\onslide+<5>{
+			\node(name) [minimum width=2cm] at (-1.5,0) {$D^{\prime\prime}$};
+			\node [left =0cm of name, minimum width=1cm] {$\mid \,)$};
+			\node(d0) [rectangle, draw] at (0,0) {$0$};
+			\foreach \x [count=\i from 0, remember=\i as \prev (initially 0)] in {0,0,0,0,0,0,0,0,0,1,0,0,0,0,0} {
+				\ifodd\x
+					\node(d\i) [rectangle, draw, fill=blue!5, right =of d\prev] {$\x$};
+				\else
+					\node(d\i) [rectangle, draw, fill=white, right =of d\prev] {$\x$};
+				\fi
+			}
+		}
+	\end{tikzpicture}
+	\begin{tikzpicture}[state/.style={circle, draw, minimum size=.7cm}, node distance=0cm]
+		\onslide+<3>{
+			\node(name) [minimum width=2cm] at (-1.5,0) {$D^{\prime}$};
+			\node [left =0cm of name, minimum width=1cm] {};
+			\node(d0) [rectangle, draw] at (0,0) {$0$};
+			\foreach \x [count=\i from 0, remember=\i as \prev (initially 0)] in {1,0,0,0,0,0,0,0,0,0,1,0,0,0,0} {
+				\ifodd\x
+					\node(d\i) [rectangle, draw, fill=blue!5, right =of d\prev] {$\x$};
+				\else
+					\node(d\i) [rectangle, draw, fill=white, right =of d\prev] {$\x$};
+				\fi
+			}
+		}
+		\onslide+<4>{
+			\node(name) [minimum width=2cm] at (-1.5,0) {$D^{\prime\prime}$};
+			\node [left =0cm of name, minimum width=1cm] {};
+			\node(d0) [rectangle, draw] at (0,0) {$0$};
+			\foreach \x [count=\i from 0, remember=\i as \prev (initially 0)] in {0,0,0,0,0,0,0,0,0,1,0,0,0,0,0} {
+				\ifodd\x
+					\node(d\i) [rectangle, draw, fill=blue!5, right =of d\prev] {$\x$};
+				\else
+					\node(d\i) [rectangle, draw, fill=white, right =of d\prev] {$\x$};
+				\fi
+			}
+		}
+		\onslide+<5>{
+			\node(name) [minimum width=2cm] at (-1.5,0) {$D$};
+			\node [left =0cm of name, minimum width=1cm] {};
+			\node(d0) [rectangle, draw, fill=blue!5] at (0,0) {$1$};
+			\foreach \x [count=\i from 0, remember=\i as \prev (initially 0)] in {1,0,0,0,0,0,0,0,0,1,1,0,0,0,0} {
+				\ifodd\x
+					\node(d\i) [rectangle, draw, fill=blue!5, right =of d\prev] {$\x$};
+				\else
+					\node(d\i) [rectangle, draw, fill=white, right =of d\prev] {$\x$};
+				\fi
+			}
+		}
+	\end{tikzpicture}
+\end{frame}
+\end{document}
