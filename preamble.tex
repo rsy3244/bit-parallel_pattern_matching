@@ -2,6 +2,8 @@
 \usepackage{bxdpx-beamer} %ナビゲーションシンボル(?)を機能させる
 \usepackage{pxjahyper} %しおりの日本語対応
 \usepackage{minijs} %和文メトリックの調整
+\usepackage{latexsym}
+\usepackage[deluxe,expert]{otf}
 \renewcommand{\kanjifamilydefault}{\gtdefault} %和文規定をゴシックに(変えたければrenewcommand で調整)
 %%%%%%%%%%
 
@@ -29,6 +31,16 @@
 %\usepackage{lxfonts}%数式・英文ローマン体を Lxfont にする
 \usepackage{bm}%数式太字
 %%%%%%%%%%
+
+%%%% その他ほしかったもの%%%%
+\usepackage{amsmath,amssymb}
+\usepackage{amsthm}
+\usepackage{algorithm, algpseudocode}
+\newcommand{\func}[1]{\ensuremath\mathrm{#1}}
+\newcommand{\Scatter}{\func{\text{S\textsc{CATTER}}}}
+\newcommand{\Gather}{\func{\text{G\textsc{ATHER}}}}
+\newcommand{\Propagate}{\func{\text{P\textsc{ROPAGATE}}}}
+%%%%%%%%
 
 %%%% Standaloneかどうかでimportのパスを切り替える %%%%
 \providecommand{\ImportStandalone}[3]{

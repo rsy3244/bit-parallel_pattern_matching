@@ -30,21 +30,27 @@
       \alert{$\{x,y\}$} & $x$回以上，$y$回以下の文字の繰り返し \\  & 例 $A\{2,4\} = \{AA, AAA, AAAA \}$ \\\hline
     \end{tabular}
   \end{center}
+  \begin{itemize}
+    \item 拡張表現のクラスは$\textsf{EXT}$
+  \end{itemize}
 \end{frame}
 
 \begin{frame}{拡張ネットワーク表現（{\small Extended Network Expressions}）}
 
-  \begin{itemize}
-    \item 拡張表現のクラスは$\textsf{EXT}$
-  \end{itemize}
+  \begin{block}{\alert{拡張ネットワーク表現}}
+    ネットワーク表現に拡張表現を追加した表現\\
+    \begin{itemize}
+      \item 拡張ネットワーク表現のクラスは$\textsf{EXNET}$
+    \end{itemize}
+  \end{block}
   \begin{center}
     \begin{tikzpicture}
-      \node(NET) [circle, draw, minimum size=1cm] at (0,0) {$\textsf{NET}$};
+      \node(NET) [circle, draw, fill=blue!10, minimum size=1cm] at (0,0) {$\textsf{NET}$};
       \node(EXNET) [left=of NET] {$\textsf{EXNET}$};
-      \node(extnet) [rounded rectangle, draw, fit= (NET) (EXNET)] {};
       \node(REG) at (-3.5, 2) {$\textsf{REG} = \textsf{EXT}$};
       \begin{scope}[on background layer, remember picture]
-        \node(reg) [rounded rectangle, fill={rgb:red,1;blue,10;white,100}, draw, fit=(NET) (EXNET) (extnet) (REG)] {};
+        \node(reg) [rounded rectangle, fill=mLightBrown!20, draw, fit=(NET) (EXNET) (REG)] {};
+        \node(extnet) [rounded rectangle, draw, fill=blue!5, fit= (NET) (EXNET)] {};
       \end{scope}
     \end{tikzpicture}
   \end{center}

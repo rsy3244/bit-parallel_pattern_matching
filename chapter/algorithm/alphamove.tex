@@ -64,10 +64,10 @@
 		\onslide+<1,4>{
 			\node(name) [minimum width=2cm] at (-1.5,0) {$D$};
 			\node [left =0cm of name, minimum width=1cm] {};
-			\node(d0) [rectangle, fill=blue!5, draw] at (0,0) {$1$};
-			\foreach \x [count=\i from 0, remember=\i as \prev (initially 0)] in {1,0,1,0,0,1,0,0,0,1,0,0,0,0,0} {
+			\node(d0) [rectangle, fill=mLightBrown!20, draw] at (0,0) {$1$};
+			\foreach \x [count=\i from 1, remember=\i as \prev (initially 0)] in {1,0,1,0,0,1,0,0,0,1,0,0,0,0,0} {
 				\ifodd\x
-					\node(d\i) [rectangle, draw, fill=blue!5, right =of d\prev] {$\x$};
+					\node(d\i) [rectangle, draw, fill=mLightBrown!20, right =of d\prev] {$\x$};
 				\else
 					\node(d\i) [rectangle, draw, fill=white, right =of d\prev] {$\x$};
 				\fi
@@ -77,9 +77,9 @@
 			\node(name) [minimum width=2cm] at (-1.5,0) {$D \ll 1$};
 			\node [left =0cm of name, minimum width=1cm] {};
 			\node(d0) [rectangle, draw] at (0,0) {$0$};
-			\foreach \x [count=\i from 0, remember=\i as \prev (initially 0)] in {1,1,0,1,0,0,1,0,0,0,1,0,0,0,0} {
+			\foreach \x [count=\i from 1, remember=\i as \prev (initially 0)] in {1,1,0,1,0,0,1,0,0,0,1,0,0,0,0} {
 				\ifodd\x
-					\node(d\i) [rectangle, draw, fill=blue!5, right =of d\prev] {$\x$};
+					\node(d\i) [rectangle, draw, fill=mLightBrown!20, right =of d\prev] {$\x$};
 				\else
 					\node(d\i) [rectangle, draw, fill=white, right =of d\prev] {$\x$};
 				\fi
@@ -88,14 +88,17 @@
 		\onslide+<5>{
 			\node(name) [minimum width=2cm] at (-1.5,0) {$D^\prime \mid 1$};
 			\node [left =0cm of name, minimum width=1cm] {};
-			\node(d0) [rectangle, fill=blue!5, draw] at (0,0) {$1$};
-			\foreach \x [count=\i from 0, remember=\i as \prev (initially 0)] in {1,0,0,0,0,0,0,0,0,0,1,0,0,0,0} {
+			\node(d0) [rectangle, fill=mLightBrown!20, draw] at (0,0) {$1$};
+			\foreach \x [count=\i from 1, remember=\i as \prev (initially 0)] in {1,0,0,0,0,0,0,0,0,0,1,0,0,0,0} {
 				\ifodd\x
-					\node(d\i) [rectangle, draw, fill=blue!5, right =of d\prev] {$\x$};
+					\node(d\i) [rectangle, draw, fill=mLightBrown!20, right =of d\prev] {$\x$};
 				\else
 					\node(d\i) [rectangle, draw, fill=white, right =of d\prev] {$\x$};
 				\fi
 			}
+		}
+		\foreach \x in {0,1,...,15} {
+			\node(idx\x) [above= 0cm of d\x] {{\scriptsize $\x$}};
 		}
 	\end{tikzpicture}
 	\begin{tikzpicture}[state/.style={circle, draw, minimum size=.7cm}, node distance=0cm]
@@ -103,25 +106,33 @@
 			\node(name) [minimum width=2cm] at (-1.5,0) {$CHR[A]$};
 			\node [left =0cm of name, minimum width=1cm] {$\& )$};
 			\node(chr0) [rectangle, draw] at (0,0) {$0$};
-			\foreach \x [count=\i from 0, remember=\i as \prev (initially 0)] in {1,0,1,0,0,0,0,0,0,1,0,1,0,0,0} {
-				\node(chr\i) [rectangle, draw, right =of chr\prev] {$\x$};
+			\foreach \x [count=\i from 1, remember=\i as \prev (initially 0)] in {1,0,1,0,0,0,0,0,0,1,0,1,0,0,0} {
+				\ifodd\x
+					\node(chr\i) [rectangle, draw, fill=mLightBrown!20, right =of chr\prev] {$\x$};
+				\else
+					\node(chr\i) [rectangle, draw, fill=white, right =of chr\prev] {$\x$};
+				\fi
 			}
 		}
 		\onslide+<4>{
 			\node(name) [minimum width=2cm] at (-1.5,0) {$REP[A]$};
 			\node [left =0cm of name, minimum width=1cm] {$\& )$};
 			\node(chr0) [rectangle, draw] at (0,0) {$0$};
-			\foreach \x [count=\i from 0, remember=\i as \prev (initially 0)] in {0,0,0,0,0,0,0,0,0,1,0,0,0,0,0} {
-				\node(chr\i) [rectangle, draw, right =of chr\prev] {$\x$};
+			\foreach \x [count=\i from 1, remember=\i as \prev (initially 0)] in {0,0,0,0,0,0,0,0,0,1,0,0,0,0,0} {
+				\ifodd\x
+					\node(chr\i) [rectangle, draw, fill=mLightBrown!20, right =of chr\prev] {$\x$};
+				\else
+					\node(chr\i) [rectangle, draw, fill=white, right =of chr\prev] {$\x$};
+				\fi
 			}
 		}
 		\onslide+<5>{
 			\node(name) [minimum width=2cm] at (-1.5,0) {$D^{\prime\prime}$};
 			\node [left =0cm of name, minimum width=1cm] {$\mid \,)$};
 			\node(d0) [rectangle, draw] at (0,0) {$0$};
-			\foreach \x [count=\i from 0, remember=\i as \prev (initially 0)] in {0,0,0,0,0,0,0,0,0,1,0,0,0,0,0} {
+			\foreach \x [count=\i from 1, remember=\i as \prev (initially 0)] in {0,0,0,0,0,0,0,0,0,1,0,0,0,0,0} {
 				\ifodd\x
-					\node(d\i) [rectangle, draw, fill=blue!5, right =of d\prev] {$\x$};
+					\node(d\i) [rectangle, draw, fill=mLightBrown!20, right =of d\prev] {$\x$};
 				\else
 					\node(d\i) [rectangle, draw, fill=white, right =of d\prev] {$\x$};
 				\fi
@@ -133,9 +144,9 @@
 			\node(name) [minimum width=2cm] at (-1.5,0) {$D^{\prime}$};
 			\node [left =0cm of name, minimum width=1cm] {};
 			\node(d0) [rectangle, draw] at (0,0) {$0$};
-			\foreach \x [count=\i from 0, remember=\i as \prev (initially 0)] in {1,0,0,0,0,0,0,0,0,0,1,0,0,0,0} {
+			\foreach \x [count=\i from 1, remember=\i as \prev (initially 0)] in {1,0,0,0,0,0,0,0,0,0,1,0,0,0,0} {
 				\ifodd\x
-					\node(d\i) [rectangle, draw, fill=blue!5, right =of d\prev] {$\x$};
+					\node(d\i) [rectangle, draw, fill=mLightBrown!20, right =of d\prev] {$\x$};
 				\else
 					\node(d\i) [rectangle, draw, fill=white, right =of d\prev] {$\x$};
 				\fi
@@ -145,9 +156,9 @@
 			\node(name) [minimum width=2cm] at (-1.5,0) {$D^{\prime\prime}$};
 			\node [left =0cm of name, minimum width=1cm] {};
 			\node(d0) [rectangle, draw] at (0,0) {$0$};
-			\foreach \x [count=\i from 0, remember=\i as \prev (initially 0)] in {0,0,0,0,0,0,0,0,0,1,0,0,0,0,0} {
+			\foreach \x [count=\i from 1, remember=\i as \prev (initially 0)] in {0,0,0,0,0,0,0,0,0,1,0,0,0,0,0} {
 				\ifodd\x
-					\node(d\i) [rectangle, draw, fill=blue!5, right =of d\prev] {$\x$};
+					\node(d\i) [rectangle, draw, fill=mLightBrown!20, right =of d\prev] {$\x$};
 				\else
 					\node(d\i) [rectangle, draw, fill=white, right =of d\prev] {$\x$};
 				\fi
@@ -156,10 +167,10 @@
 		\onslide+<5>{
 			\node(name) [minimum width=2cm] at (-1.5,0) {$D$};
 			\node [left =0cm of name, minimum width=1cm] {};
-			\node(d0) [rectangle, draw, fill=blue!5] at (0,0) {$1$};
-			\foreach \x [count=\i from 0, remember=\i as \prev (initially 0)] in {1,0,0,0,0,0,0,0,0,1,1,0,0,0,0} {
+			\node(d0) [rectangle, draw, fill=mLightBrown!20] at (0,0) {$1$};
+			\foreach \x [count=\i from 1, remember=\i as \prev (initially 0)] in {1,0,0,0,0,0,0,0,0,1,1,0,0,0,0} {
 				\ifodd\x
-					\node(d\i) [rectangle, draw, fill=blue!5, right =of d\prev] {$\x$};
+					\node(d\i) [rectangle, draw, fill=mLightBrown!20, right =of d\prev] {$\x$};
 				\else
 					\node(d\i) [rectangle, draw, fill=white, right =of d\prev] {$\x$};
 				\fi

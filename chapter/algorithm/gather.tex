@@ -4,39 +4,45 @@
 \fi
 
 \begin{document}
-\begin{frame}{$\Scatter{D,k}$の処理 (1/2)}
-  深さ$k$の$s\mathchar`-edge$の遷移を$3$個のビットマスクを用いて処理
+\begin{frame}{$\Gather{(D,k)}$の処理 (1/2)}
+  深さ$k$の$g\mathchar`-edge$の遷移を$3$個のビットマスクを用いて処理
   \begin{center}
     \begin{tabular}{ll}\hline
       ビットマスク & 立っているビット \\\hline
-      \alert<2>{$BLK_s[k]$} & \alert<2>{深さ$k$の$g\mathchar`-edge$の遷移先}\\
-      \alert<3>{$SRC_s[k]$} & \alert<3>{深さ$k$の$s\mathchar`-edge$の遷移元}\\
-      \alert<4>{$DST_s[k]$} & \alert<4>{深さ$k$の$s\mathchar`-edge$の遷移先}\\\hline
+      \alert<2>{$BLK_s[k]$} & \alert<2>{深さ$k$の$s\mathchar`-edge$の遷移先から$g\mathchar`-edge$の遷移元}\\
+      \alert<3>{$SRC_s[k]$} & \alert<3>{深さ$k$の$g\mathchar`-edge$の遷移元}\\
+      \alert<4>{$DST_s[k]$} & \alert<4>{深さ$k$の$g\mathchar`-edge$の遷移先}\\\hline
     \end{tabular}
   \end{center}
   \scalebox{.75}{\begin{tikzpicture}[state/.style={circle, draw, minimum size=.8cm}, node distance=.8cm]
     \node(a0) [state] at (0,0) {$0$};
     \node(a1) [state, right =of a0] {$1$};
-    \node<3>(a1h) [state,fill=mLightBrown!20, right =of a0] {$1$};
     \node(a2) [state, above right =of a1] {$2$};
-    \node<4>(a2) [state, fill=mLightBrown!20, above right =of a1] {$2$};
+    \node<2>(a2) [state, fill=mLightBrown!20, above right =of a1] {$2$};
     \node(a3) [state, right =of a2] {$3$};
+    \node<2>(a3) [state, fill=mLightBrown!20, right =of a2] {$3$};
     \node(a4) [state, right =of a3] {$4$};
+    \node<2,3>(a4) [state, fill=mLightBrown!20, right =of a3] {$4$};
     \node(a5) [state, below right =of a1] {$5$};
-    \node<4>(a5h) [state, fill=mLightBrown!20, below right =of a1] {$5$};
+    \node<2>(a5h) [state, fill=mLightBrown!20, below right =of a1] {$5$};
     \node(a7) [state, below right =of a4] {$7$};
-    \node<2,3>(a7h) [state,fill=mLightBrown!20, below right =of a4] {$7$};
+    \node<4>(a7h) [state,fill=mLightBrown!20, below right =of a4] {$7$};
     \node(a6) [state, below left = of a7] {$6$};
+    \node<2,3>(a6) [state, fill=mLightBrown!20, below left = of a7] {$6$};
     \node(a8) [state, above right =of a7] {$8$};
-    \node<4>(a8) [state,fill=mLightBrown!20, above right =of a7] {$8$};
+    \node<2>(a8) [state, fill=mLightBrown!20, above right =of a7] {$8$};
     \node(a9) [state, right =of a8] {$9$};
+    \node<2>(a9) [state, fill=mLightBrown!20, right =of a8] {$9$};
     \node(a10) [state, right =of a9] {$10$};
+    \node<2,3>(a10) [state, fill=mLightBrown!20, right =of a9] {$10$};
     \node(a11) [state, below right =of a7] {$11$};
-    \node<4>(a11) [state,fill=mLightBrown!20, below right =of a7] {$11$};
+    \node<2>(a11) [state, fill=mLightBrown!20, below right =of a7] {$11$};
     \node(a12) [state, right =of a11] {$12$};
+    \node<2>(a12) [state, fill=mLightBrown!20, right =of a11] {$12$};
     \node(a13) [state, right =of a12] {$13$};
+    \node<2,3>(a13) [state, fill=mLightBrown!20, right =of a12] {$13$};
     \node(a14) [state, below right =of a10] {$14$};
-    \node<2>(a14h) [state,fill=mLightBrown!20, below right =of a10] {$14$};
+    \node<4>(a14h) [state,fill=mLightBrown!20, below right =of a10] {$14$};
     \node(a15) [state, double, double distance=.8mm, right =of a14] {$15$};
 
     \draw [->] (a0) to node[midway, above] {$A$} (a1) ;
@@ -63,11 +69,11 @@
   \end{tikzpicture}}
 \end{frame}
 
-\begin{frame}{$\Scatter{(D,k)}$の処理 (2/2)}
-  \begin{block}{$\Scatter{(D,k)}$の処理}
-    $D \gets D \mid \left( \left( BLK_s[k] - \left( D \& SRC_s[k] \right) \right) \& DST_s[k] \right)$\\
+\begin{frame}{$\Gather{(D,k)}$の処理 (2/2)}
+  \begin{block}{$\Gather{(D,k)}$の処理}
+    $D \gets D \mid \left( \left( BLK_g[k] + \left( D \& SRC_g[k] \right) \right) \& DST_g[k] \right)$\\
     \begin{itemize} {\small
-      \item 減算の繰り下げによって対応する区間のみにビットが立つ
+      \item 加算の繰り上げによって対応する区間のみにビットが立つ
     } \end{itemize}
   \end{block}
 	\begin{center}
@@ -131,7 +137,7 @@
       \node(name) [minimum width=2cm] at (-1.5,0) {$BLK_s[0]$};
 			\node [left =0cm of name, minimum width=1cm] {};
 			\node(d0) [rectangle, draw] at (0,0) {$0$};
-			\foreach \x [count=\i from 1, remember=\i as \prev (initially 0)] in {0,0,0,0,0,0,1,0,0,0,0,0,0,1,0} {
+			\foreach \x [count=\i from 1, remember=\i as \prev (initially 0)] in {0,1,1,1,1,1,0,1,1,1,1,1,1,0,0} {
 				\ifodd\x
 					\node(d\i) [rectangle, draw, fill=mLightBrown!20, right =of d\prev] {$\x$};
 				\else
@@ -143,7 +149,7 @@
 			\node(name) [minimum width=2cm] at (-1.5,0) {$D^{\prime\prime}$};
 			\node [left =0cm of name, minimum width=1cm] {};
 			\node(d0) [rectangle, draw] at (0,0) {$0$};
-			\foreach \x [count=\i from 1, remember=\i as \prev (initially 0)] in {1,1,1,1,1,1,0,0,0,0,0,0,0,0,0} {
+			\foreach \x [count=\i from 1, remember=\i as \prev (initially 0)] in {0,1,1,1,1,0,1,1,1,0,0,0,0,1,0} {
 				\ifodd\x
 					\node(d\i) [rectangle, draw, fill=mLightBrown!20, right =of d\prev] {$\x$};
 				\else
@@ -160,7 +166,7 @@
 			\node(name) [minimum width=2cm] at (-1.5,0) {$SRC_s[0]$};
 			\node [left =0cm of name, minimum width=1cm] {$\& )$};
 			\node(chr0) [rectangle, draw] at (0,0) {$0$};
-			\foreach \x [count=\i from 1, remember=\i as \prev (initially 0)] in {1,0,0,0,0,0,1,0,0,0,0,0,0,0,0} {
+			\foreach \x [count=\i from 1, remember=\i as \prev (initially 0)] in {0,0,0,1,0,1,0,0,0,1,0,0,1,0,0} {
 				\ifodd\x
 					\node(chr\i) [rectangle, draw, fill=mLightBrown!20, right =of chr\prev] {$\x$};
 				\else
@@ -170,9 +176,9 @@
 		}
 		\onslide+<2>{
       \node(name) [minimum width=2cm] at (-1.5,0) {$D^{\prime}$};
-			\node [left =0cm of name, minimum width=1cm] {$- )$};
+			\node [left =0cm of name, minimum width=1cm] {$+ )$};
 			\node(chr0) [rectangle, draw] at (0,0) {$0$};
-			\foreach \x [count=\i from 1, remember=\i as \prev (initially 0)] in {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0} {
+			\foreach \x [count=\i from 1, remember=\i as \prev (initially 0)] in {0,0,0,0,0,1,0,0,0,1,0,0,0,0,0} {
 				\ifodd\x
 					\node(chr\i) [rectangle, draw, fill=mLightBrown!20, right =of chr\prev] {$\x$};
 				\else
@@ -184,7 +190,7 @@
 			\node(name) [minimum width=2cm] at (-1.5,0) {$DST_s[k]$};
 			\node [left =0cm of name, minimum width=1cm] {$\& )$};
 			\node(chr0) [rectangle, draw] at (0,0) {$0$};
-			\foreach \x [count=\i from 1, remember=\i as \prev (initially 0)] in {0,1,0,0,1,0,0,1,0,0,1,0,0,0,0} {
+			\foreach \x [count=\i from 1, remember=\i as \prev (initially 0)] in {0,0,0,0,0,0,1,0,0,0,0,0,0,1,0} {
 				\ifodd\x
 					\node(chr\i) [rectangle, draw, fill=mLightBrown!20, right =of chr\prev] {$\x$};
 				\else
@@ -196,7 +202,7 @@
       \node(name) [minimum width=2cm] at (-1.5,0) {$D^{\prime\prime\prime}$};
       \node [left =0cm of name, minimum width=1cm] {$\mid \,)$};
 			\node(d0) [rectangle, draw] at (0,0) {$0$};
-			\foreach \x [count=\i from 1, remember=\i as \prev (initially 0)] in {0,1,0,0,1,0,0,0,0,0,0,0,0,0,0} {
+			\foreach \x [count=\i from 1, remember=\i as \prev (initially 0)] in {0,0,0,0,0,0,1,0,0,0,0,0,0,1,0} {
 				\ifodd\x
 					\node(d\i) [rectangle, draw, fill=mLightBrown!20, right =of d\prev] {$\x$};
 				\else
@@ -210,7 +216,7 @@
 			\node(name) [minimum width=2cm] at (-1.5,0) {$D^{\prime}$};
 			\node [left =0cm of name, minimum width=1cm] {};
 			\node(d0) [rectangle, draw] at (0,0) {$0$};
-			\foreach \x [count=\i from 1, remember=\i as \prev (initially 0)] in {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0} {
+			\foreach \x [count=\i from 1, remember=\i as \prev (initially 0)] in {0,0,0,0,0,1,0,0,0,1,0,0,0,0,0} {
 				\ifodd\x
 					\node(d\i) [rectangle, draw, fill=mLightBrown!20, right =of d\prev] {$\x$};
 				\else
@@ -222,7 +228,7 @@
 			\node(name) [minimum width=2cm] at (-1.5,0) {$D^{\prime\prime}$};
 			\node [left =0cm of name, minimum width=1cm] {};
 			\node(d0) [rectangle, draw] at (0,0) {$0$};
-			\foreach \x [count=\i from 1, remember=\i as \prev (initially 0)] in {1,1,1,1,1,1,0,0,0,0,0,0,0,1,0} {
+			\foreach \x [count=\i from 1, remember=\i as \prev (initially 0)] in {0,1,1,1,1,0,1,1,1,0,0,0,0,1,0} {
 				\ifodd\x
 					\node(d\i) [rectangle, draw, fill=mLightBrown!20, right =of d\prev] {$\x$};
 				\else
@@ -234,7 +240,7 @@
 			\node(name) [minimum width=2cm] at (-1.5,0) {$D^{\prime\prime\prime}$};
 			\node [left =0cm of name, minimum width=1cm] {};
 			\node(d0) [rectangle, draw] at (0,0) {$0$};
-			\foreach \x [count=\i from 1, remember=\i as \prev (initially 0)] in {0,1,0,0,1,0,0,0,0,0,0,0,0,0,0} {
+			\foreach \x [count=\i from 1, remember=\i as \prev (initially 0)] in {0,0,0,0,0,0,1,0,0,0,0,0,0,1,0} {
 				\ifodd\x
 					\node(d\i) [rectangle, draw, fill=mLightBrown!20, right =of d\prev] {$\x$};
 				\else
@@ -246,7 +252,7 @@
 			\node(name) [minimum width=2cm] at (-1.5,0) {$D$};
 			\node [left =0cm of name, minimum width=1cm] {};
 			\node(d0) [rectangle, draw, fill=mLightBrown!20] at (0,0) {$1$};
-			\foreach \x [count=\i from 1, remember=\i as \prev (initially 0)] in {1,1,1,0,1,1,0,0,0,1,0,0,0,0,0} {
+			\foreach \x [count=\i from 1, remember=\i as \prev (initially 0)] in {1,0,1,0,0,1,1,0,0,1,0,0,0,1,0} {
 				\ifodd\x
 					\node(d\i) [rectangle, draw, fill=mLightBrown!20, right =of d\prev] {$\x$};
 				\else
@@ -255,8 +261,5 @@
 			}
 		}
 	\end{tikzpicture}
-
-
-
 \end{frame}
 \end{document}

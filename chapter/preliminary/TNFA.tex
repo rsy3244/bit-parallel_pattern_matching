@@ -4,8 +4,22 @@
 \fi
 
 \begin{document}
-\begin{frame}{非決定性有限オートマトン（{\small Nondeterministic Finite Automaton）}}
-  \alert{非決定性有限オートマトン}（NFA）: 
+\begin{frame}{非決定性有限オートマトン（{\small Nondeterministic Finite Automaton}）}
+  \begin{block}{\alert{非決定性有限オートマトン}（NFA）}
+    以下の要素を持つ有限オートマトンの一種\\
+    \begin{enumerate}
+      \item 状態集合$Q$
+      \item 入力アルファベット$\Sigma$
+      \item 遷移関数$\delta : \left(\Sigma \cup \epsilon \right) \rightarrow 2^Q$
+      \item 開始状態$s_0 \in Q$
+      \item 受理状態集合$T \subset Q$\\
+    \end{enumerate}
+  \end{block}
+  \begin{itemize}
+    \item 文字列を受け取ることで，\\受理できるかを判定することができる．
+    \item 決定性有限オートマトン（{\small Deterministic Finite Automaton}）とは異なり，空文字での遷移を持つことができる.
+  \end{itemize}
+    
 
 \end{frame}
 \begin{frame}{トンプソンオートマトン（Thompson NFA）(1/2)}
@@ -58,13 +72,14 @@
   \end{table}
 \end{frame}
 \begin{frame}{トンプソンオートマトン（Thompson NFA）(3/4)}
+  遷移となる辺を以下のように定義
   \begin{description}
     \item[$\alpha\mathchar`-edge$ : ]  文字を受け取ったときに遷移する辺
     \item[$\epsilon\mathchar`-edge$ : ]  空文字で遷移する辺
   \end{description}
     \begin{description}
-      \item[$s\mathchar`-edge$ : ] $1$状態から分岐する$\epsilon\mathchar`-edge$
-      \item[$g\mathchar`-edge$ : ] $1$状態に集約する$\epsilon\mathchar`-edge$
+      \item[$s\mathchar`-edge$ : ] $1$状態から深さが等しい状態へ分岐する$\epsilon\mathchar`-edge$
+      \item[$g\mathchar`-edge$ : ] $1$状態に深さが等しい状態へ集約する$\epsilon\mathchar`-edge$
       \item[$p\mathchar `-edge$ : ] 状態の添字が増加するような$\epsilon\mathchar`-edge$
       \item[$b\mathchar`-edge$ : ] $\epsilon\mathchar`-edge$のうち，$p\mathchar`-edge$でないもの
     \end{description}
