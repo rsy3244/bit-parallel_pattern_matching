@@ -8,6 +8,7 @@
 class Bitvector {
 	std::vector<Data> m_val;
 	std::size_t m_size;
+	std::size_t m_capacity;
 
 public:
 	Bitvector() = default;
@@ -19,6 +20,8 @@ public:
 	bool get(std::size_t idx)const;
 	std::size_t size()const;
 
+	void dump()const;
+
 	Bitvector& operator+=(const Bitvector& rhs);
 	Bitvector& operator-=(const Bitvector& rhs);
 	Bitvector& operator|=(const Bitvector& rhs);
@@ -28,6 +31,7 @@ public:
 	Bitvector& operator<<=(const std::size_t rhs);
 	Bitvector& operator>>=(const std::size_t rhs);
 	Bitvector operator~() const;
+	Bitvector& operator=(Bitvector&& rhs) & noexcept;
 };
 
 Bitvector operator+(const Bitvector& lhs, const Bitvector& rhs);

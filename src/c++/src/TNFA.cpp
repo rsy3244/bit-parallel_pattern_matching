@@ -1,15 +1,24 @@
 #include "TNFA.h"
 #include "Parser.h"
+
+#include <iostream>
+#include <bitset>
+#include <cassert>
 	
 TNFA::TNFA(const std::string &pattern_): pattern(pattern_), length(pattern_.size()){
 	Parser parser(pattern);
 	for(std::size_t i = 0; i < 3; ++i) {
 		for(std::size_t j = 0; j <  parser.BLK[i].size(); ++j) {
+			assert(parser.BLK[i][j].size() != 0);
 			BLK[i].push_back(Bitvector(parser.BLK[i][j]));
 			SRC[i].push_back(Bitvector(parser.SRC[i][j]));
 			DST[i].push_back(Bitvector(parser.DST[i][j]));
 		}
 	}
+	std::cerr << "s_s: ";
+	SRC[0][0].dump();
+	std::cerr << "s_g: ";
+	SRC[1][0].dump();
 	for(std::size_t c = 0; c < 128; ++c) { 
 		CHR[c] = Bitvector(parser.CHR[c]);
 	}
@@ -17,7 +26,8 @@ TNFA::TNFA(const std::string &pattern_): pattern(pattern_), length(pattern_.size
 		REP[c] = Bitvector(parser.REP[c]);
 	}
 	vec_size = BLK[0][0].size();
-	accept = parser.BLK[0][0].size();
+	accept = parser.BLK[0][0].size()-1;
+	depth = BLK[0].size()-1;
 }
 
 void TNFA::scatter(const std::size_t k) {
@@ -29,12 +39,15 @@ void TNFA::gather(const std::size_t k) {
 }
 
 void TNFA::propagate(const std::size_t k) {
-	Bitvector a = (state & BLK[2][k]) | DST[2][k];
+	Bitvector a(DST[2][k]);
+	a |= (state & BLK[2][k]);
 	state |= (BLK[2][k] & ((~(a - SRC[2][k])) ^ a));
 }
 
 void TNFA::move(const char c) {
-	state = (((state << std::size_t(1)) & CHR[c] | 1) | (state & REP[c]));
+	std::cerr << "chr c: ";
+	CHR[c].dump();
+	state = (((state << std::size_t(1)) & CHR[c]) | 1) | (state & REP[c]);
 }
 
 void TNFA::eps_closure() {
@@ -43,21 +56,30 @@ void TNFA::eps_closure() {
 		gather(k-1);
 	}
 	propagate(0);
-	for(std::size_t k = 0; k < depth+1; ++k) {
+	for(std::size_t k = 1; k < depth+1; ++k) {
 		scatter(k-1);
 		propagate(k);
 	}
 }
 
 bool TNFA::match(const std::string &text) {
-	state = Bitvector(vec_size);
+	state = Bitvector(BLK[0][0].size());
 	state.set(0, true);
+	std::cerr << "i: ";
+	state.dump();
 	eps_closure();
 	for(auto e : text) {
 		if(state.get(accept)) return true;
+		std::cerr << e << ": ";
+		state.dump();
 		move(e);
+		std::cerr << "m: ";
+		state.dump();
 		eps_closure();
 	}
+	if(state.get(accept)) return true;
+	std::cerr << "t: ";
+	state.dump();
 	return false;
 }
 
