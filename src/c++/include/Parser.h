@@ -12,6 +12,7 @@ class Parser {
 	friend TNFA;
 	const std::string pattern;
 	const std::size_t length;
+	std::size_t mdepth;
 
 	std::vector<bool> CHR[SIGMA];
 	std::vector<bool> REP[SIGMA];
@@ -21,6 +22,7 @@ class Parser {
 	std::vector<std::vector<bool>> DST[3];
 
 	void add_node();
+	void add_depth();
 	std::size_t parse_int(std::size_t &idx);
 
 	void expr(std::size_t &idx, std::size_t depth);

@@ -2,6 +2,16 @@
 
 #include <cstddef>
 #include <cassert>
+#include <vector>
+
+void Parser::add_depth() {
+	std::size_t vec_size = BLK[0].size() == 0 ? 0 : BLK[0].front().size();
+	for(std::size_t i = 0; i < 3; ++i) {
+		BLK[i].push_back(std::vector<bool>(vec_size));
+		SRC[i].push_back(std::vector<bool>(vec_size));
+		DST[i].push_back(std::vector<bool>(vec_size));
+	}
+}
 
 void Parser::add_node() {
 	for(std::size_t i = 0; i < 3; ++i) {
@@ -49,6 +59,10 @@ void Parser::factor(std::size_t &idx, std::size_t depth) {
 	primary(idx, depth+1);
 	SRC[1][depth].back() = true;
 	while(pattern[idx] == '|') {
+		if(depth+1 > mdepth){
+			mdepth += 1;
+			add_depth();
+		}
 		add_node();
 		DST[0][depth].back() = true;
 		primary(idx, depth+1);
@@ -116,7 +130,8 @@ void Parser::atom(std::size_t &idx, std::size_t depth) {
 }
 
 
-Parser::Parser(const std::string pattern_): pattern(pattern_), length(pattern.size()){
+Parser::Parser(const std::string pattern_): pattern(pattern_), length(pattern.size()), mdepth(0){
+	add_depth();
 	add_node();
 	size_t idx = 0;
 	expr(idx, 0);
