@@ -1,0 +1,54 @@
+%%%% 和文用(よくわかってないです) %%%%
+\usepackage{bxdpx-beamer} %ナビゲーションシンボル(?)を機能させる
+\usepackage{pxjahyper} %しおりの日本語対応
+\usepackage{minijs} %和文メトリックの調整
+\usepackage{latexsym}
+\usepackage[deluxe,expert]{otf}
+\renewcommand{\kanjifamilydefault}{\gtdefault} %和文規定をゴシックに(変えたければrenewcommand で調整)
+%%%%%%%%%%
+
+%%%% TikZ %%%%
+\usepackage{tikz}
+\usetikzlibrary{calc,decorations.pathreplacing,quotes,positioning,shapes,fit,arrows,backgrounds,tikzmark}
+%%%%%%%%
+
+%%%% ファイル分割用のパッケージ %%%%
+\usepackage{standalone}
+\usepackage{import}
+%%%%%%%%
+
+%%%% スライドの見た目 %%%%%
+\usetheme{Metropolis}
+\usepackage{xcolor}
+%\usefonttheme{professionalfonts}
+%%%%%%%%%%
+
+%%%%% フォント基本設定 %%%%%
+\usefonttheme{professionalfonts}
+\usepackage[T1]{fontenc}%8bit フォント
+%\usepackage{textcomp}%欧文フォントの追加
+\usepackage[utf8]{inputenc}%文字コードをUTF-8
+\usepackage{txfonts}%数式・英文ローマン体を Lxfont にする
+%\usepackage{mathpazo}
+\usepackage{bm}%数式太字
+%%%%%%%%%%
+
+%%%% その他ほしかったもの%%%%
+\usepackage{amsmath,amssymb}
+\usepackage{amsthm}
+\usepackage{algorithm, algpseudocode}
+\newcommand{\func}[1]{\ensuremath\mathrm{#1}}
+\newcommand{\Scatter}{\text{\scshape Scatter}}
+\newcommand{\Gather}{\text{\textsc{Gather}}}
+\newcommand{\Propagate}{\func{\text{\textsc{Propagate}}}}
+%%%%%%%%
+
+%%%% Standaloneかどうかでimportのパスを切り替える %%%%
+\providecommand{\ImportStandalone}[3]{
+	\IfStandalone{
+		\import{#2}{#3}
+		}{
+		\import{#1#2}{#3}
+	}
+}
+%%%%%%%%

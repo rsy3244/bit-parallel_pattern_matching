@@ -40,7 +40,9 @@ std::size_t Bitvector::size() const {
 
 void Bitvector::dump()const {
 	for(auto i = m_capacity; i-- > 0; ) {
-		std::cerr << std::bitset<WORDSIZE>(m_val[i]);
+		for(auto j = 0; j < WORDSIZE; j+=4){
+			std::cerr << std::bitset<4>(m_val[i]>> (WORDSIZE-j-4)) << " ";
+		}
 	}
 	std::cerr << std::endl;
 }
@@ -65,7 +67,7 @@ Bitvector& Bitvector::operator-=(const Bitvector& rhs) {
 	}
 	return *this;
 }
-	
+
 Bitvector& Bitvector::operator|=(const Bitvector& rhs) {
 	assert(this->size() == rhs.size());
 	for(std::size_t i = 0; i < m_capacity; ++i) {
@@ -78,7 +80,7 @@ Bitvector& Bitvector::operator|=(const Data rhs) {
 	m_val[0] |= rhs;
 	return *this;
 }
-	
+
 Bitvector& Bitvector::operator&=(const Bitvector& rhs) {
 	assert(this->size() == rhs.size());
 	for(std::size_t i = 0; i < m_capacity; ++i) {
@@ -86,7 +88,7 @@ Bitvector& Bitvector::operator&=(const Bitvector& rhs) {
 	}
 	return *this;
 }
-	
+
 Bitvector& Bitvector::operator^=(const Bitvector& rhs) {
 	assert(this->size() == rhs.size());
 	for(std::size_t i = 0; i < m_capacity; ++i) {

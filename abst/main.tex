@@ -1,0 +1,84 @@
+\documentclass[dvipdfmx,12pt,notheorems]{beamer} %dvipdfmxを使う場合は指定
+
+\input{preamble.tex}
+\usepackage{biblatex}
+\addbibresource{ref.bib}
+\let\oldfootnotesize\footnotesize
+\renewcommand*{\footnotesize}{\oldfootnotesize\tiny}
+
+\title[略タイトル]{Bit-parallelを用いたパターンマッチアルゴリズムの検証} %タイトルの行間がおかしい
+\author[Mitsuyoshi]{光吉　健汰\inst{1}}
+\institute[IKN]{\inst{1}北海道大学工学部 情報エレクトロニクス学科 情報理工学コース 4年\\
+情報知識ネットワーク研究室}
+\date{\today}%日付
+
+\begin{document}
+\begin{frame}{{\small Bit-parallelを用いた正規表現のマッチングアルゴリズムの検証}\\
+		{\scriptsize 光吉健汰（情報理工学コース4年，情報知識ネットワーク研究室）}
+	}
+	\begin{description}[背景:]
+		\item[背景:] 正規表現の高速なマッチングアルゴリズム
+		\item[目的:] Kaneta+[2010]\footfullcite{Kaneta:2010:FBM:1928328.1928377}が提案したマッチングアルゴリズムをCPU上で実装し，パフォーマンスを検証
+	\end{description}
+	\begin{itemize}
+		\item Kaneta+[2010]が，ハードウェア指向のマッチングアルゴリズムを提案
+			\begin{itemize}
+				\item FPGA上で実装を行なっていた
+			\end{itemize}
+		\item 現代のCPUは十分な幅（$64\sim256$bit）のレジスタを持つ
+			\begin{itemize}
+				\item CPU上で実装し，パフォーマンスを検証
+			\end{itemize}
+	\end{itemize} 
+	
+\end{frame}
+
+\begin{frame}{正規表現のマッチングアルゴリズム}
+	\begin{itemize}
+		\item 正規表現で表されるパターンからThompson NFAを構築
+		\item Thompson NFAの模倣を複数のビットマスクとビット演算によって実現
+			\begin{itemize}
+				\item 分岐する遷移 {\scriptsize $D \gets D \mid \left( \left( BLK_s[k] - \left( D \& SRC_s[k] \right) \right) \& DST_s[k] \right)$}\\
+				\item 集約する遷移 {\scriptsize $D \gets D \mid \left( \left( BLK_g[k] + \left( D \& SRC_g[k] \right) \right) \& DST_g[k] \right)$}\\
+				\item 伝搬する遷移 {\scriptsize $A \gets \left( D \& BLK_p[k] \right) \mid DST_p[k]$}\\
+					\hspace{2.2cm}{\scriptsize $D \gets D \mid \left( BLK_p[k] \& \left( \left( \sim \left( A - SRC_p[k] \right) \right) \oplus A \right) \right)$}\\
+			\end{itemize}
+	\end{itemize}
+  \begin{tikzpicture}
+    \node(pat) at (0,0) {$A(AB|B?)(B?.^*|AB)C$};
+    \node(expand) [right =of pat] {$A(AB|(\epsilon |B))((\epsilon |B).^*|AB)C$};
+    \node(tnfa) [below =of pat] {\scalebox{.25}{\import{../figure/}{state}}};
+    \node(bitmask) [below =of expand] {\scalebox{.45}{\import{../figure/}{bitmask}}};
+
+    \draw[->, very thick] (pat) -- (expand);
+    \draw[->, very thick] (expand.south west) -- (tnfa);
+    \draw[->, very thick] (tnfa) -- (bitmask);
+
+  \end{tikzpicture}
+\end{frame}
+
+\begin{frame}{クリーネ閉包の遷移の模倣}
+		正規表現の$0$回以上の繰り返し（クリーネ閉包）は，\\TNFA上で前の状態への遷移で表現
+			\begin{itemize}
+				\item Kaneta+[2010]は，バレルシフターによって，遷移を模倣
+					\begin{description}[バレルシフター:]
+						\item[バレルシフター:] 異なるビットを異なる数だけ\\ビットシフトを行うテクニック
+					\end{description}
+					\begin{itemize}
+						\item 移動する回数を2進展開し，2冪毎にビットシフトを行う
+					\end{itemize}
+				\item 状態のビット列を反転し，伝搬を模倣することでも可能
+					\begin{itemize}
+						\item 反転する操作を効率的に行う必要がある
+							\begin{itemize}
+								\item {\oldfootnotesize CPUが持つSIMD命令で実現可能か考える}
+							\end{itemize}
+					\end{itemize}
+			\end{itemize}
+			\begin{tikzpicture}
+				\node(tnfa) at (0,0) {\scalebox{.3}{\import{../figure/}{state_back}}};
+				\node(inv) [right = of tnfa] {\scalebox{.3}{\import{../figure/}{state_inv}}};
+				\draw[->, very thick] (tnfa) -- (inv);
+			\end{tikzpicture}
+\end{frame}
+\end{document}

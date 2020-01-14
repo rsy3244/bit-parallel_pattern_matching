@@ -1,28 +1,28 @@
-PROGRAM = main
-OBJS = main.o
-CXX = g++
-CXXFLAGS = -std=c++17 -Wall -fsanitize=undefined -fvisibility=hidden
-.SUFFIXES: .cpp .o
+CXX := g++
+CXXFLAGS := -Wall -g -std=c++17 -fsanitize=undefined -fvisibility=hidden -I include/
 
-.PHONY: all
+main: main.o Bitvector.o Bitmask.o TNFA.o Parser.o
+	$(CXX) main.o Bitvector.o Bitmask.o TNFA.o Parser.o $(CXXFLAGS) -o $@ $(LDFLAGS)
 
-all: depend $(PROGRAM)
+main.o: src/main.cpp
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
 
-$(PROGRAM): $(OBJS)
-	$(CXX) -o $(PROGRAM) $^
+TNFA.o: src/TNFA.cpp
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
 
-.c.o:
-	$(CXX) $(CXXFALGS) -c $<
+Parser.o: src/Parser.cpp
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
+
+Bitvector.o: src/Bitvector.cpp
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
+
+Bitmask.o: src/Bitmask.cpp
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
+
 
 .PHONY: clean
 
 clean:
-	$(RM) $(PROGRAM) $(OBJS) depend.inc
+	$(RM) -r *.o
 
-.PHONY: depend
 
-depend: $(OBJS:.o=.cpp)
-	-@ $(RM) depend.inc
-	-@ for i in $^; do $(CXX) -MM $$i | sed "s/\ [_a-zA-Z0-9] [_a-zA-Z0-9]*\.cpp//g" >> depend.inc
-
--include depend.inc

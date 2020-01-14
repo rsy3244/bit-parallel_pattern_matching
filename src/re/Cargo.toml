@@ -1,7 +1,0 @@
-[package]
-name = "re"
-version = "0.1.0"
-authors = ["rsy"]
-edition = "2018"
-
-[dependencies]

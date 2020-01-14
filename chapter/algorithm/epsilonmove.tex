@@ -50,9 +50,9 @@
 							\State $D \gets \Gather{(D,k-1)}$
 						\EndFor
 						\State $D \gets \Propagate{(D,0)}$
-						\For{$k \gets d(R),\ldots,1$}
-							\State $D \gets \Scatter{(D,k)}$
-							\State $D \gets \Propagate{(D,k-1)}$
+						\For{$k \gets 1,\ldots,d(R)$}
+							\State $D \gets \Scatter{(D,k-1)}$
+							\State $D \gets \Propagate{(D,k)}$
 						\EndFor
 						\Return $D$
 					\EndFunction

@@ -22,8 +22,8 @@
 	\draw[draw opacity=0] (a0) -- node[midway] {...} (a1);
 	\draw[draw opacity=0] (a2) -- node[midway] {...} (a3);
 	\begin{scope}[on background layer]
-	\node(R1)[fill=blue!20, draw=black, thick,rounded rectangle, inner sep=0cm, fit=(a0) (a1) (n1)] {};
-	\node(R2)[fill=blue!20, draw=black, thick,inner sep=0cm, rounded rectangle, fit=(a2) (a3) (n2)] {};
+	\node(R1)[fill=blue!5, draw=black, thick,rounded rectangle, inner sep=0cm, fit=(a0) (a1) (n1)] {};
+	\node(R2)[fill=blue!5, draw=black, thick,inner sep=0cm, rounded rectangle, fit=(a2) (a3) (n2)] {};
 	\draw[draw opacity=0] (R1) -- node[midway] {$\vdots$} (R2);
 	\end{scope}
   \ifx\TNFAActivateEdgeLabel\undefined \else

@@ -122,7 +122,7 @@
   {\scriptsize
     \begin{algorithmic}[1]
       \Function{$b\mathchar`-edge$の遷移処理}{}
-        \State $l \gets \text{BLK[k]の配列数}$
+        \State $l \gets BLK[k]\text{の配列数}$
         \State $jump \gets 1$
         \For{$i \gets 0,\ldots,l-1$}
         \State $D \gets \left( D \& \sim BLK_b[k][i] \right) \mid \left( \left( \left( D \& BLK_b[k][i] \right) \gg jump \right) \& BLK_b[k][i] \right) $

@@ -1,5 +1,7 @@
 #include "TNFA.h"
 #include "Parser.h"
+#include "parameter.h"
+#include "Bitmask.h"
 
 #include <iostream>
 #include <bitset>
@@ -7,46 +9,37 @@
 	
 TNFA::TNFA(const std::string &pattern_): pattern(pattern_), length(pattern_.size()){
 	Parser parser(pattern);
-	for(std::size_t i = 0; i < 3; ++i) {
-		for(std::size_t j = 0; j <  parser.BLK[i].size(); ++j) {
-			assert(parser.BLK[i][j].size() != 0);
-			BLK[i].push_back(Bitvector(parser.BLK[i][j]));
-			SRC[i].push_back(Bitvector(parser.SRC[i][j]));
-			DST[i].push_back(Bitvector(parser.DST[i][j]));
-		}
+	depth = parser.mdepth;
+	state_size = parser.BLK[0].size();
+
+	for(std::size_t i = 0; i < depth; ++i) {
+		m_scatter.push_back(Bitmask(parser.BLK[0][i], parser.SRC[0][i], parser.DST[0][i]));
+		m_gather.push_back(Bitmask(parser.BLK[1][i], parser.SRC[1][i], parser.DST[1][i]));
+		m_propagate.push_back(Bitmask(parser.BLK[2][i], parser.SRC[2][i], parser.DST[2][i]));
 	}
-	std::cerr << "s_s: ";
-	SRC[0][0].dump();
-	std::cerr << "s_g: ";
-	SRC[1][0].dump();
-	for(std::size_t c = 0; c < 128; ++c) { 
+	for(std::size_t c = 0; c < SIGMA; ++c) { 
 		CHR[c] = Bitvector(parser.CHR[c]);
 	}
-	for(std::size_t c = 0; c < 128; ++c) { 
+	for(std::size_t c = 0; c < SIGMA; ++c) { 
 		REP[c] = Bitvector(parser.REP[c]);
 	}
-	vec_size = BLK[0][0].size();
-	accept = parser.BLK[0][0].size()-1;
-	depth = BLK[0].size()-1;
 }
 
 void TNFA::scatter(const std::size_t k) {
-	state |= ((BLK[0][k] - (state & SRC[0][k])) & DST[0][k]);
+	state |= ((m_scatter[k].BLK - (state & m_scatter[k].SRC)) & m_scatter[k].DST);
 }
 
 void TNFA::gather(const std::size_t k) {
-	state |= ((BLK[1][k] + (state & SRC[1][k])) & DST[1][k]);
+	state |= ((m_gather[k].BLK + (state & m_gather[k].SRC)) & m_gather[k].DST);
 }
 
 void TNFA::propagate(const std::size_t k) {
-	Bitvector a(DST[2][k]);
-	a |= (state & BLK[2][k]);
-	state |= (BLK[2][k] & ((~(a - SRC[2][k])) ^ a));
+	Bitvector a(m_propagate[k].DST);
+	a |= (state & m_propagate[k].BLK);
+	state |= (m_propagate[k].BLK & ((~(a - m_propagate[k].SRC)) ^ a));
 }
 
 void TNFA::move(const char c) {
-	std::cerr << "chr c: ";
-	CHR[c].dump();
 	state = (((state << std::size_t(1)) & CHR[c]) | 1) | (state & REP[c]);
 }
 
@@ -63,23 +56,15 @@ void TNFA::eps_closure() {
 }
 
 bool TNFA::match(const std::string &text) {
-	state = Bitvector(BLK[0][0].size());
+	state = Bitvector(state_size);
 	state.set(0, true);
-	std::cerr << "i: ";
-	state.dump();
 	eps_closure();
 	for(auto e : text) {
 		if(state.get(accept)) return true;
-		std::cerr << e << ": ";
-		state.dump();
 		move(e);
-		std::cerr << "m: ";
-		state.dump();
 		eps_closure();
 	}
 	if(state.get(accept)) return true;
-	std::cerr << "t: ";
-	state.dump();
 	return false;
 }
 

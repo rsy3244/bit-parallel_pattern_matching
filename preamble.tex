@@ -24,11 +24,12 @@
 %%%%%%%%%%
 
 %%%%% フォント基本設定 %%%%%
+\usefonttheme{professionalfonts}
 \usepackage[T1]{fontenc}%8bit フォント
-\usepackage{textcomp}%欧文フォントの追加
+%\usepackage{textcomp}%欧文フォントの追加
 \usepackage[utf8]{inputenc}%文字コードをUTF-8
-\usepackage{otf}%otfパッケージ
-%\usepackage{lxfonts}%数式・英文ローマン体を Lxfont にする
+\usepackage{txfonts}%数式・英文ローマン体を Lxfont にする
+%\usepackage{mathpazo}
 \usepackage{bm}%数式太字
 %%%%%%%%%%
 
@@ -37,9 +38,9 @@
 \usepackage{amsthm}
 \usepackage{algorithm, algpseudocode}
 \newcommand{\func}[1]{\ensuremath\mathrm{#1}}
-\newcommand{\Scatter}{\func{\text{S\textsc{CATTER}}}}
-\newcommand{\Gather}{\func{\text{G\textsc{ATHER}}}}
-\newcommand{\Propagate}{\func{\text{P\textsc{ROPAGATE}}}}
+\newcommand{\Scatter}{\text{\scshape Scatter}}
+\newcommand{\Gather}{\text{\textsc{Gather}}}
+\newcommand{\Propagate}{\func{\text{\textsc{Propagate}}}}
 %%%%%%%%
 
 %%%% Standaloneかどうかでimportのパスを切り替える %%%%

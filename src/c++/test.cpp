@@ -4,8 +4,15 @@
 
 using namespace std;
 
+class T {
+	public:
+	vector<int> a[3];
+	using tmp = a[0];
+};
+
 signed main(){
-	for(int i = 10; i-- > 0; ) cout << i << endl;
+	T a();
+	a.tmp.push_back(1);
 
 	return 0;
 }
