@@ -1,6 +1,7 @@
 src/re/target
 build/
 backup/
+src/
 *.aux
 *.dvi
 .DS_Store
